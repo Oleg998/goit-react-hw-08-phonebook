@@ -1,0 +1,12 @@
+.img {
+  display: block;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+}
+.error {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 20px;
+}

@@ -1,0 +1,26 @@
+.meinMenuList {
+  padding: 0;
+  list-style: none;
+}
+.mainMenuItem {
+  display: inline-block;
+  padding: 20px 0;
+}
+.meinMenuLink {
+  font-weight: bold;
+  font-size: 36px;
+  margin-left: 140px;
+  color: black;
+  text-decoration: none;
+  transition: 0.5s linear;
+}
+.meinMenuLink:hover {
+  background: lightyellow;
+}
+.meinMenuLink:global(.active) {
+  color: red;
+}
+.wrapper {
+  display: block;
+  background-color: lightblue;
+}
