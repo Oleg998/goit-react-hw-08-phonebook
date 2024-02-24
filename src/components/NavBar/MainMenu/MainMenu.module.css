@@ -1,0 +1,16 @@
+
+.meinMenuLink {
+  font-weight: bold;
+  font-size: 36px;
+  margin-left: 120px;
+  color: black;
+  text-decoration: none;
+  transition: 0.5s linear;
+}
+.meinMenuLink:hover {
+  background: lightyellow;
+}
+.meinMenuLink:global(.active) {
+  color: red;
+}
+

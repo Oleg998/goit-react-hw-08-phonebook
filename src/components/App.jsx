@@ -3,20 +3,11 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { lazy } from 'react';
 
-const NotFound = lazy(() => import('pages/NotFound/NotFound'));
-const SharedLayout = lazy(() => import('./SharedLayout/SharedLayout'));
-const MoviesPage = lazy(() => import('pages/MoviesPage/MoviesPage'));
-const HomePage = lazy(() => import('pages/HomePage/HomePage'));
-const SingleMoviesPage = lazy(() =>
-  import('pages/SingleMoviesPage/SingleMoviesPage')
-);
+const NotFound = lazy(() => import("../pages/NotFound/NotFound"));
+const SharedLayout = lazy(() => import("../components/SharedLayout/SharedLayout"));
+const RegisterPage =lazy(()=>import ("../pages/RegisterPage/RegisterPage"))
+const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
 
-const Coast = lazy(() =>
-  import('pages/SingleMoviesPageCoast/SingleMoviesPageCoast')
-);
-const Reviews = lazy(() =>
-  import('pages/SingleMoviesPageReviews/SingleMoviesPageReviews')
-);
 export const App = () => {
   return (
     <div>
@@ -25,12 +16,8 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<HomePage />} />
-          <Route path="movies" element={<MoviesPage />} />
-          <Route path="movies/:id" element={<SingleMoviesPage />}>
-            <Route path="coast" element={<Coast />} />
-            <Route path="reviews" element={<Reviews />} />
-          </Route>
           <Route path="*" element={<NotFound />} />
+          <Route path="/registration"  element={<RegisterPage/>}/>
         </Route>
       </Routes>
     </div>
