@@ -7,6 +7,8 @@ const NotFound = lazy(() => import("../pages/NotFound/NotFound"));
 const SharedLayout = lazy(() => import("../components/SharedLayout/SharedLayout"));
 const RegisterPage =lazy(()=>import ("../pages/RegisterPage/RegisterPage"))
 const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
+const ContactsPage = lazy(() => import("../pages/ContactPage/ContactPage"));
+
 
 export const App = () => {
   return (
@@ -17,7 +19,8 @@ export const App = () => {
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<HomePage />} />
           <Route path="*" element={<NotFound />} />
-          <Route path="/registration"  element={<RegisterPage/>}/>
+          <Route path="registration"  element={<RegisterPage/>}/>
+          <Route path="contact"  element={<ContactsPage/>}/>
         </Route>
       </Routes>
     </div>

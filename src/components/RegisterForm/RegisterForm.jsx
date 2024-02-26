@@ -2,8 +2,8 @@ import css from './RegisterForm.module.css';
 import { useState } from 'react';
 import { useMemo } from 'react';
 import { nanoid } from 'nanoid';
-import { selectAuthError  } from "../../redux/auth/auth-selectors"
-import {  useSelector } from 'react-redux';
+//import { selectAuthError  } from "../../redux/auth/auth-selectors"
+//import {  useSelector } from 'react-redux';
 
 const INITIAL_STATE = {
     name: '',
@@ -12,8 +12,7 @@ const INITIAL_STATE = {
   };
 
 const RegiterForm = ({onSubmit}) => {
-    const IsError = useSelector(selectAuthError);
-
+    //const IsError = useSelector(selectAuthError);
     const [state, setState] = useState({ ...INITIAL_STATE });
 
     const handelChange = ({ target }) => {
@@ -25,7 +24,8 @@ const RegiterForm = ({onSubmit}) => {
       const handelSubmit = e => {
         e.preventDefault();
         onSubmit({ ...state });
-        if(!IsError){ setState({ ...INITIAL_STATE }) }
+        // console.log(IsError);
+        // if(!IsError){ setState({ ...INITIAL_STATE }) }
         
       };
 
