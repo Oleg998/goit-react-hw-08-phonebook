@@ -8,7 +8,6 @@ import {
 } from '../../redux/auth/auth-selectors';
 import Loader from 'components/Loader/Loader';
 import css from './register-page.module.css';
-import { Navigate } from 'react-router-dom';
 import {  toast } from 'react-toastify';
 import { useEffect } from 'react';
 
@@ -32,10 +31,7 @@ const RegisterPage = () => {
   }, [isLogin, isError]);
 
 
-  if (isLogin) {  
-    return <Navigate to="/contact" />;
-  }
-   
+ 
   return (
     <>
      
