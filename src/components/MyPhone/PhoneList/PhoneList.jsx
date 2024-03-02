@@ -1,43 +1,59 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setFilter } from '../../../redux/filter/filter-slice';
 import {
   selectContact,
+  selectorRequestStutus,
   selectFilterContact,
+
 } from '../../../redux/contacts/contacts-selectors';
 import {
   fetchContacts,
   deleteContacts,
 } from '../../../redux/contacts/contacts-operation';
 import css from './PhoneList.module.css';
+import { toast } from 'react-toastify';
 
 const PhoneList = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+  const [selectedButtonId, setSelectedButtonId] = useState(null);
 
-  const { isLoading, error } = useSelector(selectContact);
+  const status= useSelector(selectorRequestStutus)
+  const dispatch = useDispatch();
+  const {  error  } = useSelector(selectContact);
   const items = useSelector(selectFilterContact);
+
+  useEffect(() => {
+    setSelectedButtonId(null);    
+    dispatch(fetchContacts());
+  }, [dispatch,selectedButtonId ]);
+
+  useEffect(()=>{
+    if (status==="deleteRejected") {toast.error('Contact not deleted')} 
+  },[status]);
+
+  useEffect(()=>{
+    if(status==="deleteFulfilled"){toast.success("Contact deleted successfully")}
+  },[status]);
 
   const deleteName = id => {
     dispatch(deleteContacts(id));
+    setSelectedButtonId(id);
   };
 
-  const handelSearce = ({ target }) => dispatch(setFilter(target.value));
+   const handelSearce = ({ target }) => dispatch(setFilter(target.value));
 
   const elements = items.map(({ id, name, number }) => {
-    const isDeleting = isLoading && items.some(item => item.id === id);
-    console.log(isDeleting);
     return (
       <li key={id} className={css.items}>
         {name} :{number}
         <button
           onClick={() => deleteName(id)}
           type="button"
-          className={`${isDeleting ? css.button_loading : css.button} `}
+          className={`${css.button} ${
+            selectedButtonId === id ? css.selectedButton : ''
+          }`}
         >
-          {isDeleting ? 'Loading...' : 'Delete'}
+          {selectedButtonId === id ? 'Loading...' : 'Delete'}
         </button>
       </li>
     );
@@ -55,7 +71,7 @@ const PhoneList = () => {
         ></input>
         <ul className={css.phone_list}>{elements}</ul>
         {!items.length && <h2>No phone in Phonebook</h2>}
-        {error && <p>......{error}......</p>}
+        {error && <p className={css.error_mesager}>......{error}......</p>}
       </div>
     </>
   );

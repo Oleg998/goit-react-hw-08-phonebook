@@ -1,16 +1,16 @@
-import css from './RegisterForm.module.css';
+import css from "./login-form.module.css"
 import { useState } from 'react';
 import { useMemo } from 'react';
 import { nanoid } from 'nanoid';
 
 
 const INITIAL_STATE = {
-    name: '',
+   
     email: '',
     password: '',
   };
 
-const RegiterForm = ({onSubmit}) => {
+const LoginForm = ({onSubmit}) => {
 
     const [state, setState] = useState({ ...INITIAL_STATE });
 
@@ -27,28 +27,14 @@ const RegiterForm = ({onSubmit}) => {
         
       };
 
-  const nameId = useMemo(() => nanoid(), []);
+ 
   const emailId = useMemo(() => nanoid(), []);
   const passwordId = useMemo(() => nanoid(), []);
-  const {name , email , password}= state;
+  const { email , password}= state;
   return (
     <form onSubmit={handelSubmit} className={css.form}>
-      <h1 className={css.titel}>Form Registration</h1>
-      <div>
-        <label htmlFor={nameId}>Login</label>
-        <input
-          value={name}
-          onChange={handelChange}
-          className={css.input}
-          id={nameId}
-          type="text"
-          name="name"
-          required
-          placeholder="Enter you name "
-        ></input>
-      </div>
-
-      <div>
+      <h1 className={css.titel}>Form Login</h1>
+          <div>
         <label htmlFor={emailId}>Email </label>
         <input
           value={email}
@@ -76,10 +62,10 @@ const RegiterForm = ({onSubmit}) => {
       </div>
       
       <button className={css.btn} type="submit">
-        Registration
+        Login
       </button>
     </form>
   );
 };
 
-export default RegiterForm;
+export default LoginForm;

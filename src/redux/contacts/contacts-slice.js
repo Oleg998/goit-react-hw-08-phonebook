@@ -5,16 +5,18 @@ import {
   deleteContacts,
 } from './contacts-operation';
 
-const initialState = { items: [], isLoading: false, error: null };
+const initialState = { items: [], isLoading: false, error: null , requestStutus:""};
 
 const statusPending = state =>{
   state.isLoading=true;
   state.error=null
+  state.requestStutus="Pending"
 }
 
 const statusRejected = (state , {payload})=>{
   state.isLoading=false;
   state.error=payload
+  
 }
 
 const contactSlice = createSlice({
@@ -28,6 +30,7 @@ const contactSlice = createSlice({
         state.isLoading = false;
         state.error = null;
         state.items = payload;
+        state.requestStutus="fetchFulfilled"
       })
       .addCase(fetchContacts.rejected, statusRejected)
       .addCase(addContacts.pending, statusPending)
@@ -35,15 +38,26 @@ const contactSlice = createSlice({
       .addCase(addContacts.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.items.push(payload);
+        state.requestStutus="addFlfilled"
       })
-      .addCase(addContacts.rejected,statusRejected)
+      .addCase(addContacts.rejected,(state , {payload})=>{
+        state.isLoading=false;
+        state.error=payload;
+        state.requestStutus="addRejected";
+      })
+      
       .addCase(deleteContacts.pending,statusPending)
 
       .addCase(deleteContacts.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.items = state.items.filter(({ id }) => id !== payload);
+        state.requestStutus="deleteFulfilled"
       })
-      .addCase(deleteContacts.rejected, statusRejected);
+      .addCase(deleteContacts.rejected,(state , {payload})=>{
+        state.isLoading=false;
+        state.error=payload;
+        state.requestStutus="deleteRejected";
+      })
   },
 });
 

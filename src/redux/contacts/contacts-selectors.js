@@ -3,6 +3,8 @@ import { selectFilter } from "../filter/filter-selectors";
 
 export const selectAllContact = store => store.contacts.items;
 
+export const selectorRequestStutus=state=>state.contacts.requestStutus
+
 
 export const selectContact = state =>state.contacts
 

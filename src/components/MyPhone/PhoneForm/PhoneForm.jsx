@@ -1,9 +1,11 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { nanoid } from 'nanoid';
 import css from './PhoneForm.module.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { addContacts } from '../../../redux/contacts/contacts-operation';
+import { selectContact,selectorRequestStutus } from "../../../redux/contacts/contacts-selectors"
+import { toast } from 'react-toastify';
 
 const INITIAL_STATE = {
   name: '',
@@ -12,8 +14,25 @@ const INITIAL_STATE = {
 
 const PhoneForm = () => {
   const [state, setState] = useState({ ...INITIAL_STATE });
-
+  const {isLoading}=useSelector(selectContact);
   const dispatch = useDispatch();
+  const status= useSelector(selectorRequestStutus) 
+
+  useEffect(()=>{
+    if(status==="addRejected") 
+    {toast.error('Contact not added to Phonebook')}
+  },[status])
+
+  useEffect(()=>{
+    if(status==="addFlfilled"){toast.success("Success contact add to phonebook")}
+  },[status]);
+
+  useEffect (()=>{
+    
+    if (status==="addFlfilled"){setState({ ...INITIAL_STATE })}
+  },[status])
+
+
 
   const addForPhenebook = data => {
     dispatch(addContacts(data));
@@ -30,7 +49,7 @@ const PhoneForm = () => {
   const handelSubmit = e => {
     e.preventDefault();
     addForPhenebook({ ...state });
-    setState({ ...INITIAL_STATE });
+   
   };
   const { name, number } = state;
   return (
@@ -66,8 +85,10 @@ const PhoneForm = () => {
           placeholder="Enter you number "
         ></input>
       </div>
-      <button className={css.btn} type="submit">
-        Add contact
+      <button className={`${css.btn} ${
+            isLoading  ? css.selectedButton : ''
+          }`} type="submit">
+      {isLoading  ? 'Loading...' : 'Add contact'}
       </button>
     </form>
   );

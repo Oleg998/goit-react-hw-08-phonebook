@@ -1,28 +1,20 @@
-import { Routes, Route } from 'react-router-dom';
+import {AppRoute} from "./AppRoutes"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { lazy } from 'react';
+import {  useDispatch } from "react-redux";
+import { current } from "../redux/auth/auth-operation"
+import { useEffect } from "react";
 
-const NotFound = lazy(() => import("../pages/NotFound/NotFound"));
-const SharedLayout = lazy(() => import("../components/SharedLayout/SharedLayout"));
-const RegisterPage =lazy(()=>import ("../pages/RegisterPage/RegisterPage"))
-const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
-const ContactsPage = lazy(() => import("../pages/ContactPage/ContactPage"));
+
 
 
 export const App = () => {
-  return (
-    <div>
-      <ToastContainer autoClose={5000} />
-
-      <Routes>
-        <Route path="/" element={<SharedLayout />}>
-          <Route index element={<HomePage />} />
-          <Route path="*" element={<NotFound />} />
-          <Route path="registration"  element={<RegisterPage/>}/>
-          <Route path="contact"  element={<ContactsPage/>}/>
-        </Route>
-      </Routes>
-    </div>
+  const dispatch=useDispatch()
+  useEffect (()=>{dispatch(current())},[dispatch])
+  return ( <>
+  <ToastContainer autoClose={5000} />
+    <AppRoute/>
+  </>
+    
   );
 };
