@@ -8,9 +8,8 @@ import {
 } from '../../redux/auth/auth-selectors';
 import Loader from 'components/Loader/Loader';
 import css from './register-page.module.css';
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useEffect } from 'react';
-
 
 const RegisterPage = () => {
   const isLoading = useSelector(selectAuthIsLoading);
@@ -30,11 +29,8 @@ const RegisterPage = () => {
     }
   }, [isLogin, isError]);
 
-
- 
   return (
     <>
-     
       <RegiterForm onSubmit={handleSingup}></RegiterForm>;
       {isError && <h3 className={css.error}>{isError}</h3>}
       {isLoading && <Loader></Loader>};
