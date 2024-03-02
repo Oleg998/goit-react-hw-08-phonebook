@@ -16,10 +16,11 @@ export const AppRoute = () => {
   return (
     <div>
       <Routes>
-        <Route element={<PublicRoute/>}>
-          <Route path="/" element={<SharedLayout />}>
-            <Route index element={<HomePage />} />
-            <Route path="*" element={<NotFound />} />
+        {' '}
+        <Route path="/" element={<SharedLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path="*" element={<NotFound />} />
+          <Route element={<PublicRoute />}>
             <Route path="registration" element={<RegisterPage />} />
             <Route path="login" element={<LoginPage />} />
           </Route>
