@@ -38,3 +38,5 @@ export const logoutRequest = async () => {
   const { data } = await authInstance.post('/users/logout');
   return data;
 };
+
+export default authInstance;
